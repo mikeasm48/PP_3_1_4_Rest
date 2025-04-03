@@ -1,13 +1,14 @@
 package ru.kata.spring.boot_security.demo.model;
 
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,12 +17,15 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private int id;
+    private Long id;
     @Column
     private String name;
+    @Column(name = "last_name")
+    private String lastName;
+    @Column(name = "age")
+    private Long age;
     @Column
     private String email;
-
     @Column
     private String password;
 
@@ -34,13 +38,13 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
     public User() { }
-    public User(int id, String name, String email) {
+    public User(Long id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -52,7 +56,7 @@ public class User implements UserDetails {
         return email;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,6 +67,14 @@ public class User implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getLastName() { return lastName; }
+
+    public void setLastName(String lastName) { this.lastName = lastName; }
+
+    public Long getAge() { return age; }
+
+    public void setAge(Long age) { this.age = age; }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

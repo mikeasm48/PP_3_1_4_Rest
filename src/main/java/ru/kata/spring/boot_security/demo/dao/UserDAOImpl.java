@@ -21,7 +21,7 @@ public class UserDAOImpl implements UserDAO {
         return entityManager.createQuery("select u from User u", User.class)
                 .getResultList();
     }
-    public User getUser(int id) {
+    public User getUser(Long id) {
         return  entityManager.find(User.class, id);
     }
 
@@ -29,11 +29,11 @@ public class UserDAOImpl implements UserDAO {
         entityManager.persist(user);
     }
 
-    public void updateUser(int id, User updatedUser) {
+    public void updateUser(Long id, User updatedUser) {
         entityManager.merge(updatedUser);
     }
 
-    public void deleteUser(int id) {
+    public void deleteUser(Long id) {
         User userById = getUser(id);
         entityManager.remove(userById);
     }

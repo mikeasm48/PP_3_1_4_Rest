@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getUser(int id) {
+    public User getUser(Long id) {
         return userDao.getUser(id);
     }
 
@@ -41,13 +41,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void updateUser(int id, User user) {
+    public void updateUser(Long id, User user) {
         user.setPassword(makeHashedPassword(user.getPassword()));
         userDao.updateUser(id, user);
     }
 
     @Override
-    public void deleteUser(int id) {
+    public void deleteUser(Long id) {
         userDao.deleteUser(id);
     }
 
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     private String makeHashedPassword(String password) {
-        if (password != null && password.startsWith("{bcrypt}")) {
+        if (password != null && password.startsWith("{")) {
             return password;
         }
         return "{bcrypt}" + bCryptPasswordEncoder.encode(password);
